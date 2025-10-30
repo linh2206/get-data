@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: ffprobe-api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount main.py for development (optional - comment out for production)
+      - ./main.py:/app/main.py
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    restart: unless-stopped
+
