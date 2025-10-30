@@ -79,9 +79,13 @@ async def probe_udp_stream(
     udp_url = f"udp://{request.ip}:{request.port}"
     
     try:
-        # Build ffprobe command
+        # Build ffprobe command với các option tối ưu cho UDP
         command = [
             "ffprobe",
+            "-v", "quiet",  # Giảm log verbose
+            "-analyzeduration", "5000000",  # 5 giây để analyze
+            "-probesize", "5000000",  # 5MB probe size
+            "-timeout", "10000000",  # 10 giây timeout cho network I/O (microseconds)
             "-i", udp_url,
             "-show_format",
             "-show_streams",
@@ -96,7 +100,7 @@ async def probe_udp_stream(
             command,
             capture_output=True,
             text=True,
-            timeout=30  # 30 seconds timeout
+            timeout=15  # 15 seconds timeout (giảm từ 30s)
         )
         
         # Check if command executed successfully

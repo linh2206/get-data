@@ -4,12 +4,16 @@ services:
   api:
     build: .
     container_name: ffprobe-api
-    ports:
-      - "8000:8000"
+    # QUAN TRỌNG: Dùng host network để nhận multicast UDP
+    network_mode: "host"
     volumes:
       # Mount main.py for development (optional - comment out for production)
       - ./main.py:/app/main.py
     environment:
       - TZ=Asia/Ho_Chi_Minh
+      # Uncomment để đổi port (mặc định 8000)
+      # - API_PORT=8000
     restart: unless-stopped
+    # Nếu không dùng được host mode, uncomment dòng dưới:
+    # privileged: true
 
