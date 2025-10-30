@@ -144,3 +144,4 @@ else:
 - **Port**: Mặc định 8000 (có thể thay đổi trong `main.py`)
 - **API Key**: Cần thay đổi trong `main.py`
 
+# get-data
